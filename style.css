@@ -1,0 +1,11 @@
+body {
+    font-size: 28px; 
+}
+    
+#welcome {
+    text-align: center;
+    background-color: #FFB612;
+    border-radius: 25px;
+    width: 60%;
+    margin: 0 auto;
+}
