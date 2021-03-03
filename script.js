@@ -1,32 +1,67 @@
-var questions = {
-    "question0" : {
-        "questionNum": 1,
-        "question" : "How many Super Bowl appearances do the Steelers have?",
-        "answers" :  [6,7,8,9],
-        "correct" : 8
-    },
-    "question1" : {
-        "questionNum": 2,
-        "question" : "How many Super Bowl wins do the Steelers have?",
-        "answers" :  [5,6,7,8],
-        "correct" : 6
-    },
-    "question2" : {
-        "questionNum": 3,
-        "question" : "Which running back has the most rushing yards in franchise history?",
-        "answers" :  ["Franco Harris", "Jerome Bettis", "Willie Parker", "Le'Veon Bell"],
-        "correct" : "Franco Harris"
-    },
-    "question3" : {
-        "questionNum": 4,
-        "question" : "Which player has the most recieving yards in franchise history?",
-        "answers" :  ["Lynn Swann", "John Stallwordth", "Hines Ward", "Antonio Brown"],
-        "correct" : "Hines Ward"
-    },
-    "question4" : {
-        "questionNum": 5,
-        "question" : "Who owns the Pittsburgh Steelers franchise?",
-        "answers" :  ["Mike Tomlin", "Dan Rooney", "Kevin Colbert", "Bill Cowher"],
-        "correct" : "Dan Rooney"
-    },
-}
+var questions = [
+        {
+            "questionNum": 1,
+            "question": "How many Super Bowl appearances do the Steelers have?",
+            "answers": [6, 7, 8, 9],
+            "correct": 8
+        },
+        {
+            "questionNum": 2,
+            "question": "How many Super Bowl wins do the Steelers have?",
+            "answers": [5, 6, 7, 8],
+            "correct": 6
+        },
+        {
+            "questionNum": 3,
+            "question": "Which running back has the most rushing yards in franchise history?",
+            "answers": ["Franco Harris", "Jerome Bettis", "Willie Parker", "Le'Veon Bell"],
+            "correct": "Franco Harris"
+        },
+        {
+            "questionNum": 4,
+            "question": "Which player has the most recieving yards in franchise history?",
+            "answers": ["Lynn Swann", "John Stallwordth", "Hines Ward", "Antonio Brown"],
+            "correct": "Hines Ward"
+        },
+        {
+            "questionNum": 5,
+            "question": "Who owns the Pittsburgh Steelers franchise?",
+            "answers": ["Mike Tomlin", "Dan Rooney", "Kevin Colbert", "Bill Cowher"],
+            "correct": "Dan Rooney"
+        }
+]
+
+var modalEl = document.getElementById("modal");
+var welcomeEl = document.getElementById("welcome");
+var startBtn =document.getElementById("startBtn");
+var nextBtn = document.getElementById("nexter");
+
+var questionI = 0
+// var ul = document.createElement("ul");
+// modalEl.appendChild(ul);
+
+function runQuiz(){
+    // for ( i=0;i < questions.length;i++){
+        var titleDiv = document.createElement("div");
+        titleDiv.setAttribute("id", "questionnumber")
+        titleDiv.textContent = "Question" + questions[questionI].questionNum;
+        modalEl.prepend(titleDiv);
+
+    // }
+};
+
+startBtn.addEventListener("click", function() {
+    runQuiz();
+    welcomeEl.setAttribute("style", "display:none")
+});
+
+nextBtn.addEventListener("click", function() {
+    console.log(questionI);
+    questionI++;
+    var titleDiv = document.getElementById("questionnumber")
+    titleDiv.textContent = "Question" + questions[questionI].questionNum;
+
+    console.log(questionI)
+    console.log("we in here")
+    return questionI;
+})
