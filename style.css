@@ -27,22 +27,6 @@ body {
     box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
 }
 
-#nexter {
-    display:inline-block;
-    border:1px solid white;
-    background-color: #A5ACAF;
-    cursor:pointer;
-    vertical-align:middle;
-    max-width: 100px;
-    padding: 5px 10px;
-    text-align: center;
-    border-radius: 5px;
-}
-#nexter:active {
-    color:white;
-    box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
-}
-
 #modal {
     text-align: center;
     background-color: #FFB612;
