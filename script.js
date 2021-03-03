@@ -65,6 +65,7 @@ function runQuiz(){
 startBtn.addEventListener("click", function() {
     runQuiz();
     welcomeEl.setAttribute("style", "display:none")
+    modalEl.setAttribute("style", "display:block")
 });
 
 nextBtn.addEventListener("click", function() {
