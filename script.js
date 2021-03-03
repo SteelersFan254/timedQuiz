@@ -42,8 +42,20 @@ var questionI = 0
 
 function runQuiz(){
     // for ( i=0;i < questions.length;i++){
+        var ul = document.createElement("ul");
+        ul.setAttribute("id", "questionList");
+        questions[questionI].answers.forEach(function(choice) {
+            var li = document.createElement("li");
+            li.textContent = choice;
+            ul.appendChild(li);
+        })
+        modalEl.prepend(ul);
+        var question = document.createElement("div");
+        question.setAttribute("id", "question");
+        question.textContent= questions[questionI].question;
+        modalEl.prepend(question);
         var titleDiv = document.createElement("div");
-        titleDiv.setAttribute("id", "questionnumber")
+        titleDiv.setAttribute("id", "questionnumber");
         titleDiv.textContent = "Question" + questions[questionI].questionNum;
         modalEl.prepend(titleDiv);
 
@@ -56,12 +68,20 @@ startBtn.addEventListener("click", function() {
 });
 
 nextBtn.addEventListener("click", function() {
-    console.log(questionI);
     questionI++;
+    var ul = document.getElementById("questionList");
+    while(ul.firstChild) { 
+        ul.removeChild(ul.firstChild); 
+    } 
+    questions[questionI].answers.forEach(function(choice) {
+        var li = document.createElement("li");
+        li.textContent = choice;
+        ul.appendChild(li);
+    })
+    var question = document.getElementById("question");
+    question.textContent= questions[questionI].question;
+
     var titleDiv = document.getElementById("questionnumber")
     titleDiv.textContent = "Question" + questions[questionI].questionNum;
-
-    console.log(questionI)
-    console.log("we in here")
     return questionI;
 })
