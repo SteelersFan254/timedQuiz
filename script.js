@@ -85,4 +85,19 @@ nextBtn.addEventListener("click", function() {
     var titleDiv = document.getElementById("questionnumber")
     titleDiv.textContent = "Question" + questions[questionI].questionNum;
     return questionI;
-})
+});
+
+keepscore();
+
+function keepscore () {
+    setInterval(displayScore, 1000);
+}
+
+var score = 100;
+
+function displayScore () {
+    var timer = document.getElementById("timer");
+    timer.textContent = score;
+    score--;
+    return score;
+}
