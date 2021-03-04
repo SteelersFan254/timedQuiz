@@ -29,24 +29,28 @@ var questions = [
         "answers": ["Mike Tomlin", "Dan Rooney", "Kevin Colbert", "Bill Cowher"],
         "correct": "Dan Rooney"
     }
-]
+];
+var players = [];
+var keyCode = 1;
+var questionI = 0;
+var score = 99;
 
 var modalEl = document.getElementById("modal");
 var welcomeEl = document.getElementById("welcome");
 var startBtn = document.getElementById("startBtn");
+var highScoreTable = document.getElementById("highScoreTable");
 
-var questionI = 0
-var score = 99;
+
 
 /////////////////////////////////////////////////
 startBtn.addEventListener("click", function () {
-    runQuiz();
+    getQuestion();
     welcomeEl.setAttribute("style", "display:none");
     modalEl.setAttribute("style", "display:block");
     keepscore();
 });
 
-function runQuiz() {
+function getQuestion() {
     var ul = document.createElement("ul");
     ul.setAttribute("id", "questionList");
     questions[questionI].answers.forEach(function (choice) {
@@ -64,43 +68,66 @@ function runQuiz() {
     titleDiv.textContent = "Question" + questions[questionI].questionNum;
     modalEl.prepend(titleDiv);
 };
-////////////////////////////////////////////////////////////////////
-function keepscore() {
-    setInterval(displayScore, 10);
-    setInterval(minusScore, 1000)
-}
 
-function displayScore() {
-    var timer = document.getElementById("timer");
-    timer.textContent = score;
-}
-
-function minusScore() {
-    score--;
-    return score;
-}
 /////////////////////////////////////////////////////////////////////
 
 modalEl.addEventListener("click", function (event) {
-    if (event.target.matches("li")) {
-        console.log(questions[questionI].correct)
-
-        console.log(event.target.innerHTML)
+    if (event.target.matches("li") && questionI < 4) {
         if (event.target.innerHTML === questions[questionI].correct) {
             console.log("correct")
-
         } else {
             console.log("incorrect")
             score = score - 10;
         }
-        console.log(questions[questionI].correct)
-
-
         generateQuestions();
-
-
-
-    };
+    } else if (event.target.matches("li")) {
+        console.log("finished")
+        while (modalEl.firstChild) {
+            modalEl.removeChild(modalEl.firstChild);
+        };
+        clearInterval(displayScore, minusScore);
+        var h1 = document.createElement("h1");
+        h1.textContent = "You're finished!"
+        modalEl.appendChild(h1);
+        var p = document.createElement("p");
+        p.textContent = "Your score was " + score;
+        modalEl.appendChild(p);
+        var p2 = document.createElement("p");
+        p2.textContent = "Enter your initials below";
+        modalEl.appendChild(p2);
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        modalEl.appendChild(input);
+        window.addEventListener('keydown', e => {
+            if ('Enter' === e.key) {
+                console.log(input.value);
+                console.log(score);
+                if (JSON.parse(localStorage.getItem("players")) !== null) {
+                    players = JSON.parse(localStorage.getItem("players"));
+                    keyCode = players.length + 1;
+                    players.push(
+                        {
+                            initials: input.value,
+                            score: score,
+                            keyCode: keyCode
+                        }
+                    )
+                } else {
+                    players.push(
+                        {
+                            initials: input.value,
+                            score: score,
+                            keyCode: keyCode
+                        }
+                    )
+                }
+                keyCode++;
+                console.log(keyCode);
+                localStorage.setItem("players", JSON.stringify(players));
+                return keyCode;
+            }
+        }, false);
+    }
 });
 
 function generateQuestions() {
@@ -121,5 +148,23 @@ function generateQuestions() {
     titleDiv.textContent = "Question" + questions[questionI].questionNum;
     return questionI;
 }
+
+////////////////////////////////////////////////////////////////////
+function keepscore() {
+    displayScore;
+    minusScore;
+}
+
+var displayScore = function () {
+    var timer = document.getElementById("timer");
+    timer.textContent = score;
+}
+
+var minusScore = function () {
+    score--;
+    return score;
+}
+
+
 
 
